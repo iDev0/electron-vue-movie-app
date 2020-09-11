@@ -2,9 +2,8 @@
     <div id="wrapper">
         <h1>HELLO MOVIE APP!!</h1>
         <ul v-for="movie in nowPlaying" :key="movie.id">
-          <li>영화제목 : {{ movie.title }}</li>
-          <li>영화제목 : {{ movie.title }}</li>
-          <img v-bind:src="poster(movie.poster_path)" width="300" height="300"/>
+          <li>영화제목 : {{ movie.title }}, 영화평점 : {{ movie.vote_average }}</li><br/>
+          <img :src="poster(movie.poster_path)" width="300" height="300"/>
         </ul>
     </div>
 </template>
