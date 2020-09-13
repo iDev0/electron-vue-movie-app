@@ -1,6 +1,8 @@
 <template>
     <div id="wrapper">
-        <h1>{{ title }}</h1>
+        <h1>
+            {{ title.length > 0 ? title : '타이틀을 찾을 수 없습니다. :(' }}
+        </h1>
         <!-- 4번 영화데이터 for문 돌리기 -->
         <ul v-for="movie in nowPlaying" :key="movie.id">
             <!-- json data 를 불러옴 -->
@@ -14,7 +16,12 @@
 import { movieAPI, apiImage } from '../api'
 
 export default {
-
+  props : {
+    title : {
+      type : String,
+      required : true
+    }
+  },
   data : function () {
     // 1번 변수 생성
     return {
