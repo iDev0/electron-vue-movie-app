@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import { movieAPI, apiImage } from '../api'
+import { movieAPI } from '../api'
 import Poster from "./MainPage/Poster";
 
 export default {
@@ -40,11 +40,6 @@ export default {
         nowPlaying : []
     }
   },
-  methods : {
-    poster : function(path) {
-      return apiImage(path)
-    }
-  }, 
   mounted () {
     // 2번 영화 데이터 호출
     movieAPI.nowPlaying()
