@@ -7,13 +7,14 @@
         <ul v-for="movie in nowPlaying" :key="movie.id">
             <!-- json data 를 불러옴 -->
           <li>영화제목 : {{ movie.title }}, 영화평점 : {{ movie.vote_average }}</li><br/>
-          <img :src="poster(movie.poster_path)" width="400" height="400"/>
+            <Poster :path="movie.poster_path" width="300" height="300" />
         </ul>
     </div>
 </template>
 
 <script>
 import { movieAPI, apiImage } from '../api'
+import Poster from "./MainPage/Poster";
 
 export default {
   props : {
@@ -22,6 +23,7 @@ export default {
       required : true
     }
   },
+  components: { Poster },
   data : function () {
     // 1번 변수 생성
     return {
@@ -46,5 +48,7 @@ export default {
 </script>
 
 <style>
-
+ul {
+    float: left;
+}
 </style>

@@ -3,7 +3,7 @@
 </template>
 
 <script>
-  import { apiImage } from '../api'
+  import { apiImage } from "../../api";
 
   export default {
     name: "Poster",
@@ -13,10 +13,10 @@
         required : true,
       },
       width : {
-        type : Number,
+        type : String,
       },
       height : {
-        type : Number
+        type : String
       }
     },
     computed : {
