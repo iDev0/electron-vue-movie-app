@@ -7,22 +7,21 @@
             </div>
         </div>
 
-        <ul v-for="movie in nowPlaying" :key="movie.id" v-show="!loading">
-            <transition name="fade">
-                <li style="list-style: none">
-                    <div>
-                        <Poster :path="movie.poster_path" width="300" height="300" />
-                        <p> 영화제목 : {{ movie.title }}</p>
-                        <p>영화평점 : {{ movie.vote_average }} </p>
-                    </div>
-                </li>
-            </transition>
-        </ul>
+        <swiper ref="poster" :options="swiperOptions">
+            <swiper-slide v-for="movie in nowPlaying" :key="movie.id">
+                <Poster :path="movie.poster_path" width="250" height="250"/>
+            </swiper-slide>
+            <div class="swiper-pagination" slot="pagination"></div>
+            <div class="swiper-button-prev" slot="button-prev"></div>
+            <div class="swiper-button-next" slot="button-next"></div>
+        </swiper>
     </div>
 </template>
 
 <script>
 import { movieAPI } from '../api'
+import { Swiper, SwiperSlide, directive } from 'vue-awesome-swiper'
+import 'swiper/swiper-bundle.css'
 import Poster from "./MainPage/Poster";
 
 export default {
@@ -32,45 +31,61 @@ export default {
       required : true
     }
   },
-  components: { Poster },
+  components: {
+      Poster,
+      Swiper,
+      SwiperSlide
+  },
+    directives : {
+      swiper: directive
+    },
   data : function () {
     // 1번 변수 생성
     return {
         loading : true,
-        nowPlaying : []
+        nowPlaying : [],
+        swiperOptions : {
+            slidesPerView: 5,
+            spaceBetween: 10,
+            slidesPerGroup: 5,
+            loop: true,
+            loopFillGroupWithBlank: true,
+            pagination : {
+                el : '.swiper-pagination',
+                clickable: true
+            },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev'
+            }
+        }
     }
   },
+    computed : {
+      swiper() {
+        return this.$refs.poster.$swiper
+      }
+    },
   mounted () {
+    this.swiper.slideTo(3, 1000, false)
+
     // 2번 영화 데이터 호출
     movieAPI.nowPlaying()
       .then(([result, error]) => {
-        console.log(result);
-        // 3번 생성한 1번 변수에 영화 데이터 저장
           this.nowPlaying = result
           this.loading = false
-      });
+      })
   }
 }
 </script>
 
 <style>
-ul {
-    float: left;
+body {
+    background: black;
 }
-ul li {
-    height: 400px;
-    border: 1px solid;
-    padding: 10px;
-    border-radius: 15px;
+p {
+    color : white;
 }
-
-.fade-enter-active, .fade-leave-active {
-    transition: opacity .5s;
-}
-.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
-    opacity: 0;
-}
-
 @keyframes ldio-kqajj5wfe5 {
     0% { opacity: 1 }
     100% { opacity: 0 }
