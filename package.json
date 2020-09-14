@@ -57,7 +57,7 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
-    "swiper": "^6.2.0",
+    "swiper": "^4.1.0",
     "vue": "^2.5.16",
     "vue-awesome-swiper": "^4.1.1",
     "vue-electron": "^1.0.6",
