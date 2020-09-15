@@ -4,7 +4,7 @@
 
 <script>
   import { apiImage } from "../../api";
-
+    // 테스트 주석
   export default {
     name: "Poster",
     props : {
